@@ -37,6 +37,33 @@
             font-size: 1.5rem;
             opacity: 0.8;
         }
+        .loading-bar-container {
+            width: 80%;
+            background: #555;
+            height: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .loading-bar {
+            height: 100%;
+            background: #4CAF50;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        .loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #4CAF50;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin-top: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
         .frog {
             position: absolute;
             font-size: 3rem;
@@ -69,11 +96,17 @@
 <body>
     <div class="container">
         <div class="title">☕🖥️Initializing The Void Door Realm...🖥️☕</div>
-        <div class="subtitle">🐸Please Stand By as i get the site working🐸</div>
+        <div class="subtitle">🐸Please Stand By as I get the site working🐸</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <div class="loading-spinner"></div>
     </div>
+
     <script>
         const container = document.querySelector('.container');
-        
+        const loadingBar = document.getElementById('loadingBar');
+
         function createFrog() {
             const frog = document.createElement('div');
             frog.classList.add('frog');
@@ -84,8 +117,20 @@
             setTimeout(() => frog.remove(), 10000); // match animation duration
         }
 
-        // Create frogs every 200ms for a denser "torrent"
         setInterval(createFrog, 200); // create frogs every 200ms
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 1;
+            loadingBar.style.width = `${progress}%`;
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    window.location.href = "main.html"; // Redirect to main.html after the loading bar is full
+                }, 500); // Small delay to allow the bar to complete
+            }
+        }, 100); // Increase progress every 100ms
     </script>
 </body>
 </html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CodeVoid | I Do Stuff</title>
+  <meta name="description" content="CodeVoid - Exploring tech, coding, and creative projects." />
+  <link rel="icon" href="favicon.png">
+  <meta name="theme-color" content="#613583">
+  <link rel="manifest" href="manifest.webmanifest">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #fadein {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1e1e2e;
+      z-index: 999;
+      animation: fadeout 1s ease-out 0.3s forwards;
+    }
+    @keyframes fadeout {
+      0% { opacity: 1; }
+      100% { opacity: 0; visibility: hidden; }
+    }
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin: 10px 0;
+    }
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      font-weight: 400;
+      text-decoration: none;
+      color: #1e1e2e;
+      background: #cba6f7;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #f38ba8;
+    }
+    .panel {
+      background: #313244;
+      padding: 15px;
+      margin: 15px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+    }
+    .projects {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .twitch-embed {
+      margin-top: 20px;
+    }
+    footer {
+      position: absolute;
+      bottom: 10px;
+      font-size: 0.9rem;
+      color: #a6adc8;
+    }
+    .license {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #89b4fa;
+    }
+  </style>
+</head>
+<body>
+  <div id="fadein"></div>
+  <h1>CodeVoid</h1>
+  <p>I build things, break things, and make things better.</p>
+  <a href="https://github.com/CodeVoid0x25" class="btn" target="_blank">My GitHub</a>
+  
+  <div class="projects">
+    <h2>My Projects</h2>
+    <div id="projects-list"></div>
+  </div>
+  
+  <footer>
+    <small>© <script>document.write(new Date().getFullYear())</script> CodeVoid. All Rights Reserved.</small>
+    <div class="license">This project is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank">GPL v3</a>.</div>
+  </footer>
+  <script>
+    window.onload = function() {
+      setTimeout(() => document.getElementById("fadein").remove(), 1000);
+      fetch("https://codespace0x26.github.io/CodeVoid0x25/projects.json")
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          let projectsContainer = document.getElementById("projects-list");
+          data.projects.forEach(project => {
+            let projectElement = document.createElement("div");
+            projectElement.className = "panel";
+            projectElement.innerHTML = `<a href="${project.URI}" target="_blank">${project.Project}</a><p>${project.message}</p>`;
+            projectsContainer.appendChild(projectElement);
+          });
+        })
+        .catch(error => console.error("Error loading projects.json:", error));
+    };
+  </script>
+</body>
+</html>
