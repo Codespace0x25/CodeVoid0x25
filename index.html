@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to CodeVoid0x25's Realm</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #3a3a5c);
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        .frog {
+            position: absolute;
+            font-size: 3rem;
+            animation: moveFrog 10s linear infinite;
+        }
+        @keyframes moveFrog {
+            0% { 
+                transform: translateX(0vw) translateY(100vh);
+                opacity: 1;
+            }
+            25% { 
+                transform: translateX(100vw) translateY(0vh);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateX(-100vw) translateY(100vh);
+                opacity: 0.6;
+            }
+            75% { 
+                transform: translateX(0vw) translateY(50vh);
+                opacity: 0.4;
+            }
+            100% { 
+                transform: translateX(100vw) translateY(-100vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">☕🖥️Initializing The Void Door Realm...🖥️☕</div>
+        <div class="subtitle">🐸Please Stand By as i get the site working🐸</div>
+    </div>
+    <script>
+        const container = document.querySelector('.container');
+        
+        function createFrog() {
+            const frog = document.createElement('div');
+            frog.classList.add('frog');
+            frog.textContent = '🐸'; // Frog emoji
+            frog.style.left = `${Math.random() * 100}vw`;
+            frog.style.top = `${Math.random() * 100}vh`;
+            container.appendChild(frog);
+            setTimeout(() => frog.remove(), 10000); // match animation duration
+        }
+
+        // Create frogs every 200ms for a denser "torrent"
+        setInterval(createFrog, 200); // create frogs every 200ms
+    </script>
+</body>
+</html>
