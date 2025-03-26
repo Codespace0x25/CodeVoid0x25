@@ -1,218 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favacom.png">
-  <title>Olivia Cox - Portfolio</title>
-  <style>
-    /* Reset some default styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favacom.png">
+	<title>Olivia Cox - Portfolio</title>
+	<script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+	<style>
+		/* Reset some default styles */
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-    /* Body and basic layout */
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #111;
-      color: #fff;
-      line-height: 1.6;
-    }
+		/* Body and basic layout */
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #111;
+			color: #fff;
+			line-height: 1.6;
+		}
 
-    .container {
-      width: 80%;
-      margin: 0 auto;
-    }
+		.container {
+			width: 80%;
+			margin: 0 auto;
+		}
 
-    h1, h2, h3 {
-      color: #4CAF50;
-    }
+		h1,
+		h2,
+		h3 {
+			color: #4CAF50;
+		}
 
-    h1 {
-      font-size: 3em;
-      margin: 20px 0;
-    }
+		h1 {
+			font-size: 3em;
+			margin: 20px 0;
+		}
 
-    h2 {
-      font-size: 2em;
-      margin-top: 40px;
-    }
+		h2 {
+			font-size: 2em;
+			margin-top: 40px;
+		}
 
-    ul {
-      list-style: none;
-    }
+		ul {
+			list-style: none;
+		}
 
-    a {
-      text-decoration: none;
-      color: #4CAF50;
-    }
+		a {
+			text-decoration: none;
+			color: #4CAF50;
+		}
 
-    a:hover {
-      text-decoration: underline;
-    }
+		a:hover {
+			text-decoration: underline;
+		}
 
-    /* Header */
-    header {
-      background: #333;
-      padding: 20px 0;
-      text-align: center;
-    }
+		/* Header */
+		header {
+			background: #333;
+			padding: 20px 0;
+			text-align: center;
+		}
 
-    header h1 {
-      font-size: 3.5em;
-    }
+		header h1 {
+			font-size: 3.5em;
+		}
 
-    header p {
-      font-size: 1.2em;
-      margin-top: 5px;
-    }
+		header p {
+			font-size: 1.2em;
+			margin-top: 5px;
+		}
 
-    /* Navigation */
-    nav {
-      background: #222;
-      padding: 10px 0;
-    }
+		/* Navigation */
+		nav {
+			background: #222;
+			padding: 10px 0;
+		}
 
-    nav ul {
-      display: flex;
-      justify-content: center;
-    }
+		nav ul {
+			display: flex;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
 
-    nav ul li {
-      margin: 0 15px;
-    }
+		nav ul li {
+			margin: 0 15px;
+		}
 
-    nav ul li a {
-      font-size: 1.1em;
-    }
+		nav ul li a {
+			font-size: 1.1em;
+		}
 
-    /* Sections */
-    .section {
-      padding: 40px 0;
-      background: #222;
-      margin-bottom: 20px;
-    }
+		/* Sections */
+		.section {
+			padding: 40px 0;
+			background: #222;
+			margin-bottom: 20px;
+		}
 
-    .project-list {
-      display: flex;
-      gap: 30px;
-    }
+		.project-list {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 30px;
+		}
 
-    .project {
-      background: #333;
-      padding: 20px;
-      border-radius: 5px;
-      flex: 1;
-    }
+		.project {
+			background: #333;
+			padding: 20px;
+			border-radius: 5px;
+			text-align: center;
+		}
 
-    .project h3 {
-      margin-bottom: 10px;
-    }
+		.project h3 {
+			margin-bottom: 10px;
+		}
 
-    /* Footer */
-    footer {
-      background: #111;
-      padding: 20px 0;
-      text-align: center;
-    }
+		/* Footer */
+		footer {
+			background: #111;
+			padding: 20px 0;
+			text-align: center;
+		}
 
-    footer p {
-      font-size: 1.1em;
-    }
+		footer p {
+			font-size: 1.1em;
+		}
 
-    footer a {
-      color: #4CAF50;
-    }
+		footer a {
+			color: #4CAF50;
+		}
 
-    /* Contact and Links */
-    .links a {
-      display: inline-block;
-      margin: 10px;
-      font-size: 1.2em;
-      color: #4CAF50;
-    }
+		/* Contact and Links */
+		.links a {
+			display: inline-block;
+			margin: 10px;
+			font-size: 1.2em;
+			color: #4CAF50;
+		}
 
-    .links a:hover {
-      text-decoration: underline;
-    }
-  </style>
+		.links a:hover {
+			text-decoration: underline;
+		}
+	</style>
 </head>
+
 <body>
-  <header>
-    <div class="container">
-      <h1>Olivia Cox</h1>
-      <p>Software Developer</p>
-    </div>
-  </header>
+	<header>
+		<div class="container">
+			<h1>Olivia Cox</h1>
+			<p>Software Developer</p>
+		</div>
+	</header>
 
-  <nav>
-    <div class="container">
-      <ul>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+	<nav>
+		<div class="container">
+			<ul>
+				<li><a href="#about">About Me</a></li>
+				<li><a href="#projects">Projects</a></li>
+				<li><a href="#skills">Skills</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+		</div>
+	</nav>
 
-  <section id="about" class="section">
-    <div class="container">
-      <h2>About Me</h2>
-      <p>
-        I'm Olivia (codevoid0x25), a low-level systems developer with a long history in programming. I've worked on many interesting projects, learning new things along the way. I'm passionate about systems programming, custom hardware design, and open-source contributions. Whether it's building a CPU from scratch or developing my own Linux distro, I love to push the boundaries of what software and hardware can do.
-      </p>
-    </div>
-  </section>
+	<section id="about" class="section">
+		<div class="container">
+			<h2>About Me</h2>
+			<p>
+				I'm Olivia (codevoid0x25), a low-level systems developer with a long history in programming. I've worked on many
+				interesting projects, learning new things along the way. I'm passionate about systems programming, custom
+				hardware design, and open-source contributions. Whether it's building a CPU from scratch or developing my own
+				Linux distro, I love to push the boundaries of what software and hardware can do.
+			</p>
+			<p style="color:#4CAF50; font-size:2rem;">
+				"The day you stop learning is the day you stop growing." - Albert Einstein
+			</p>
+		</div>
+	</section>
 
-  <section id="projects" class="section">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="project-list">
-        <div class="project">
-          <h3>Plant Take Over Game</h3>
-          <p>A game inspired by Spore, but focusing on plants and their evolution in a unique world.</p>
-        </div>
-        <div class="project">
-          <h3>Cmod</h3>
-          <p>Cmod is a C library that adds object-oriented programming (OOP) features to C while maintaining full compatibility with the C language.</p>
-        </div>
-        <div class="project">
-          <h3>Twitch Bot</h3>
-          <p>Creating a multi-language Twitch bot with automation and AI features to enhance user experience on Twitch streams.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+	<section id="projects" class="section">
+		<div class="container">
+			<h2>Projects</h2>
+			<div class="project-list">
+				<div class="project">
+					<h3>Plant Take Over Game</h3>
+					<p>A game inspired by Spore, but focusing on plants and their evolution in a unique world.</p>
+				</div>
+				<div class="project">
+					<h3>Emacs Config</h3>
+					<p>I've spent my time in Emacs for most of my development. Emacs is my home, it's my window manager.</p>
+					<a href="https://github.com/codespace0x25/dotfiles" target="_blank">Dotfiles</a>
+					<img style="width:8rem; display: block; margin: 10px auto;"
+						src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/EmacsIcon.svg/1200px-EmacsIcon.svg.png"
+						alt="the emacs logo">
+				</div>
+				<div class="project">
+					<h3><a href="https://github.com/codespace0x25/cmod" target="_blank">Cmod</a></h3>
+					<p>Cmod is a C library that adds object-oriented programming (OOP) features to C while maintaining full
+						compatibility with the C language.</p>
+				</div>
+				<div class="project">
+					<h3>Twitch Bot</h3>
+					<p>Creating a multi-language Twitch bot with automation and AI features to enhance user experience on Twitch
+						streams.</p>
+				</div>
+			</div>
+		</div>
+	</section>
 
-  <section id="skills" class="section">
-    <div class="container">
-      <h2>Skills</h2>
-      <ul>
-        <li>C, Rust, C++, Web Development</li>
-        <li>System-Level Programming</li>
-        <li>Open-Source Contributions</li>
-        <li>Linux, Emacs</li>
-      </ul>
-    </div>
-  </section>
+	<section id="skills" class="section">
+		<div class="container">
+			<h2>Skills</h2>
+			<ul>
+				<li>C, C++, Web Development, Java</li>
+				<li>System-Level Programming</li>
+				<li>Open-Source Contributions</li>
+				<li>Linux, Emacs, Bash</li>
+			</ul>
+		</div>
+	</section>
 
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Contact & Links</h2>
-      <div class="links">
-        <a href="https://twitch.tv/codevoid0x25" target="_blank">Twitch</a>
-        <a href="https://github.com/codespace0x25/" target="_blank">GitHub</a>
-      </div>
-    </div>
-  </section>
+	<section id="contact" class="section">
+		<div class="container">
+			<h2>Contact & Links</h2>
+			<div class="links">
+				<a href="https://twitch.tv/codevoid0x25" target="_blank">Twitch</a>
+				<a href="https://github.com/codespace0x25/" target="_blank">GitHub</a>
+			</div>
+		</div>
+	</section>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Olivia Cox</p>
-    </div>
-  </footer>
-</body>
+	<footer>
+		<div class="container">
+			<p>&copy; 2025 Olivia Cox</p>
+			<p>This project is under the GNU GPL3 license. You can view a copy at <a
+					href="https://github.com/Codespace0x25/CodeVoid0x25/blob/main/LICENSE" target="_blank">GPL</a></p>
+		</div>
+	</footer>
+<script type="module">
+  new cursoreffects.rainbowCursor({
+  size: 5,
+  colors: ["#55CDFC", "#F7A8B8", "#FFFFFF", "#F7A8B8", "#55CDFC"]
+  });
+</script>
+</body
+
 </html>
