@@ -113,10 +113,10 @@
             frog.style.left = `${Math.random() * 100}vw`;
             frog.style.top = `${Math.random() * 100}vh`;
             container.appendChild(frog);
-            setTimeout(() => frog.remove(), 10000); // match animation duration
+            setTimeout(() => frog.remove(), 10000);
         }
 
-        setInterval(createFrog, 200); // create frogs every 200ms
+        setInterval(createFrog, 200);
 
         let progress = 0;
         const interval = setInterval(() => {
@@ -126,10 +126,10 @@
             if (progress >= 100) {
                 clearInterval(interval);
                 setTimeout(() => {
-                    window.location.href = "main.html"; // Redirect to main.html after the loading bar is full
-                }, 500); // Small delay to allow the bar to complete
+                    window.location.href = "main.html";
+                }, 500);
             }
-        }, 100); // Increase progress every 100ms
+        }, 100);
     </script>
 </body>
 </html>
