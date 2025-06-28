@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodeVoidOS – Modular ESP32 Watch System Design</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      max-width: 960px;
+      margin: auto;
+      padding: 2em;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #bb86fc;
+    }
+    code {
+      background: #1e1e1e;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+    }
+    pre {
+      background: #1e1e1e;
+      padding: 1em;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    th, td {
+      padding: 0.6em;
+      border: 1px solid #444;
+    }
+    th {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🧠 CodeVoidOS</h1>
+<p><strong>A modular, app-driven embedded operating system</strong> designed for the LILYGO T-Display-S3 ESP32-S3 with a built-in AMOLED display, physical buttons, and hardware expansion support.</p>
+
+<hr>
+
+<h2>📦 Hardware Overview</h2>
+
+<ul>
+  <li><strong>Base Board:</strong> LILYGO T-Display-S3 ESP32-S3</li>
+  <li><strong>Screen:</strong> 1.91" AMOLED (RM67162)</li>
+  <li><strong>Buttons:</strong> 
+    <ul>
+      <li>Top right – Power</li>
+      <li>Middle right – Select</li>
+      <li>Bottom right – Rotary encoder with press</li>
+    </ul>
+  </li>
+  <li><strong>Strap:</strong> Leather cuff</li>
+  <li><strong>Top Connector:</strong> Modular extension slot with VCC, GND, DATA+, DATA−</li>
+</ul>
+
+<hr>
+
+<h2>🧩 Slot System (C-Slot)</h2>
+<p>Each slot exposes the following pins:</p>
+<ul>
+  <li><code>VCC</code> – Power</li>
+  <li><code>GND</code> – Ground</li>
+  <li><code>DATA+</code> – Module → Watch</li>
+  <li><code>DATA−</code> – Watch → Module</li>
+</ul>
+<p>Modules announce themselves by pulling <code>DATA+</code> high on boot. Watch responds by pulling <code>DATA−</code> high. Module then sends an identity packet.</p>
+
+<h3>📜 Example Module ID Packet</h3>
+<pre><code>typedef struct {
+  char app_id[8];
+  bool is_deva;
+  uint16_t caps_flags;
+  char info_app_id[8];
+} module_id_t;
+</code></pre>
+
+<hr>
+
+<h2>🧠 Deva Modules (System-Wide Extensions)</h2>
+<p>Devas are special modules that provide <strong>global hardware capabilities</strong> accessible by all apps.</p>
+
+<h3>🔌 Defined Deva Modules</h3>
+<table>
+  <thead>
+    <tr><th>Module</th><th>Capability</th><th>Flag</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Speaker</td><td>Audio output (buzzer or amp)</td><td><code>DEV_CAP_AUDIO</code></td></tr>
+    <tr><td>Audio Jack</td><td>Analog 3.5mm output</td><td><code>DEV_CAP_AUDIO</code></td></tr>
+    <tr><td>SD Card</td><td>Data storage via SPI</td><td><code>DEV_CAP_STORAGE</code></td></tr>
+  </tbody>
+</table>
+
+<h3>✅ System Integration</h3>
+<ul>
+  <li>Flags like <code>DEV_CAP_AUDIO</code> allow apps to detect and use features</li>
+  <li>The OS tracks Deva modules using a central <code>deva_manager</code></li>
+  <li>Apps can call APIs like <code>has_deva_capability()</code> and <code>play_beep()</code></li>
+</ul>
+
+<hr>
+
+<h2>🖥️ OS Architecture</h2>
+
+<h3>🔧 App Registry</h3>
+<p>The OS supports both static and dynamic apps:</p>
+<pre><code>typedef struct {
+  const char* app_id;
+  const char* name;
+  const uint8_t* icon;
+  void (*entry_point)(SlotComm*);
+  bool is_dynamic;
+  bool is_deva_owned;
+  uint8_t slot_id;
+} AppEntry;
+</code></pre>
+
+<h3>📲 Launcher + Home Screen</h3>
+<ul>
+  <li>Dynamically generates grid of apps from registry</li>
+  <li>Home button returns here from any app</li>
+  <li>Top bar always shows time, battery, signal</li>
+</ul>
+
+<h3>🔄 App Communication</h3>
+<p>Apps can take full control of a module's communication lines after being launched.</p>
+
+<hr>
+
+<h2>🧭 System Apps</h2>
+
+<table>
+  <thead>
+    <tr><th>App</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Clock</td><td>Default lock/watch face</td></tr>
+    <tr><td>Timer</td><td>Rotary-controlled countdown</td></tr>
+    <tr><td>Weather</td><td>Uses Wi-Fi for forecast via API</td></tr>
+    <tr><td>Tetris</td><td>Demonstrates controls and graphics</td></tr>
+    <tr><td>Deva Info</td><td>Lists all active Deva modules</td></tr>
+  </tbody>
+</table>
+
+---
+
+<h2>🛠️ APIs & Utilities</h2>
+
+<h3>🎵 Audio</h3>
+<pre><code>void play_beep(uint16_t freq, uint16_t duration_ms);
+</code></pre>
+
+<h3>🧠 Deva Query</h3>
+<pre><code>bool has_deva_capability(uint16_t flag);
+SlotComm* get_deva_device(uint16_t flag);
+</code></pre>
+
+<h3>💾 Storage</h3>
+<pre><code>bool deva_storage_write(const char* path, const uint8_t* data, size_t len);
+</code></pre>
+
+---
+
+<h2>💬 Vision</h2>
+<p>CodeVoidOS is a smart, modular wearable platform designed around real-time plug-in hardware modules. It combines:</p>
+<ul>
+  <li>Retro-tech styling</li>
+  <li>Dynamic software registry</li>
+  <li>System-wide services from Deva modules</li>
+  <li>Custom apps and a full runtime on the ESP32-S3</li>
+</ul>
+
+<p>The final design merges physical hardware expandability with a flexible OS runtime to create a wearable device worthy of the Void.</p>
+
+</body>
+</html>
